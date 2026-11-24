@@ -1,0 +1,94 @@
+[gd_resource type="SpriteFrames" load_steps=27 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/robot/robot_idle_sheet.png" id="1_idle"]
+[ext_resource type="Texture2D" path="res://assets/sprites/robot/robot_walk_sheet.png" id="2_walk"]
+[ext_resource type="Texture2D" path="res://assets/sprites/robot/robot_jump_sheet.png" id="3_jump"]
+[ext_resource type="Texture2D" path="res://assets/sprites/robot/robot_success_sheet.png" id="4_success"]
+[ext_resource type="Texture2D" path="res://assets/sprites/robot/robot_hurt_sheet.png" id="5_hurt"]
+
+[sub_resource type="AtlasTexture" id="Atlas_idle_0"]
+atlas = ExtResource("1_idle")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_idle_1"]
+atlas = ExtResource("1_idle")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_idle_2"]
+atlas = ExtResource("1_idle")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_idle_3"]
+atlas = ExtResource("1_idle")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_walk_0"]
+atlas = ExtResource("2_walk")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_walk_1"]
+atlas = ExtResource("2_walk")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_walk_2"]
+atlas = ExtResource("2_walk")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_walk_3"]
+atlas = ExtResource("2_walk")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_walk_4"]
+atlas = ExtResource("2_walk")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_walk_5"]
+atlas = ExtResource("2_walk")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_jump_0"]
+atlas = ExtResource("3_jump")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_jump_1"]
+atlas = ExtResource("3_jump")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_jump_2"]
+atlas = ExtResource("3_jump")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_jump_3"]
+atlas = ExtResource("3_jump")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_success_0"]
+atlas = ExtResource("4_success")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_success_1"]
+atlas = ExtResource("4_success")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_success_2"]
+atlas = ExtResource("4_success")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_success_3"]
+atlas = ExtResource("4_success")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_hurt_0"]
+atlas = ExtResource("5_hurt")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_hurt_1"]
+atlas = ExtResource("5_hurt")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_hurt_2"]
+atlas = ExtResource("5_hurt")
+region = Rect2(256, 0, 128, 128)
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("Atlas_idle_0")}, {"duration": 1.0, "texture": SubResource("Atlas_idle_1")}, {"duration": 1.0, "texture": SubResource("Atlas_idle_2")}, {"duration": 1.0, "texture": SubResource("Atlas_idle_3")}], "loop": true, "name": &"idle", "speed": 5.0}, {"frames": [{"duration": 1.0, "texture": SubResource("Atlas_walk_0")}, {"duration": 1.0, "texture": SubResource("Atlas_walk_1")}, {"duration": 1.0, "texture": SubResource("Atlas_walk_2")}, {"duration": 1.0, "texture": SubResource("Atlas_walk_3")}, {"duration": 1.0, "texture": SubResource("Atlas_walk_4")}, {"duration": 1.0, "texture": SubResource("Atlas_walk_5")}], "loop": true, "name": &"walk", "speed": 10.0}, {"frames": [{"duration": 1.0, "texture": SubResource("Atlas_jump_0")}, {"duration": 1.0, "texture": SubResource("Atlas_jump_1")}, {"duration": 1.0, "texture": SubResource("Atlas_jump_2")}, {"duration": 1.0, "texture": SubResource("Atlas_jump_3")}], "loop": false, "name": &"jump", "speed": 8.0}, {"frames": [{"duration": 1.0, "texture": SubResource("Atlas_success_0")}, {"duration": 1.0, "texture": SubResource("Atlas_success_1")}, {"duration": 1.0, "texture": SubResource("Atlas_success_2")}, {"duration": 1.0, "texture": SubResource("Atlas_success_3")}], "loop": true, "name": &"success", "speed": 8.0}, {"frames": [{"duration": 1.0, "texture": SubResource("Atlas_hurt_0")}, {"duration": 1.0, "texture": SubResource("Atlas_hurt_1")}, {"duration": 1.0, "texture": SubResource("Atlas_hurt_2")}], "loop": false, "name": &"hurt", "speed": 8.0}]

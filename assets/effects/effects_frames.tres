@@ -1,0 +1,130 @@
+[gd_resource type="SpriteFrames" load_steps=36 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/effects/fx_success_sheet.png" id="1_success"]
+[ext_resource type="Texture2D" path="res://assets/effects/fx_error_sheet.png" id="2_error"]
+[ext_resource type="Texture2D" path="res://assets/effects/fx_crystal_sheet.png" id="3_crystal"]
+[ext_resource type="Texture2D" path="res://assets/effects/fx_stars_sheet.png" id="4_stars"]
+[ext_resource type="Texture2D" path="res://assets/effects/fx_portal_sheet.png" id="5_portal"]
+
+[sub_resource type="AtlasTexture" id="Atlas_success_0"]
+atlas = ExtResource("1_success")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_success_1"]
+atlas = ExtResource("1_success")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_success_2"]
+atlas = ExtResource("1_success")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_success_3"]
+atlas = ExtResource("1_success")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_success_4"]
+atlas = ExtResource("1_success")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_success_5"]
+atlas = ExtResource("1_success")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_error_0"]
+atlas = ExtResource("2_error")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_error_1"]
+atlas = ExtResource("2_error")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_error_2"]
+atlas = ExtResource("2_error")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_error_3"]
+atlas = ExtResource("2_error")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_error_4"]
+atlas = ExtResource("2_error")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_error_5"]
+atlas = ExtResource("2_error")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_crystal_0"]
+atlas = ExtResource("3_crystal")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_crystal_1"]
+atlas = ExtResource("3_crystal")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_crystal_2"]
+atlas = ExtResource("3_crystal")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_crystal_3"]
+atlas = ExtResource("3_crystal")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_crystal_4"]
+atlas = ExtResource("3_crystal")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_crystal_5"]
+atlas = ExtResource("3_crystal")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_stars_0"]
+atlas = ExtResource("4_stars")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_stars_1"]
+atlas = ExtResource("4_stars")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_stars_2"]
+atlas = ExtResource("4_stars")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_stars_3"]
+atlas = ExtResource("4_stars")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_stars_4"]
+atlas = ExtResource("4_stars")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_stars_5"]
+atlas = ExtResource("4_stars")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_portal_0"]
+atlas = ExtResource("5_portal")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_portal_1"]
+atlas = ExtResource("5_portal")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_portal_2"]
+atlas = ExtResource("5_portal")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_portal_3"]
+atlas = ExtResource("5_portal")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_portal_4"]
+atlas = ExtResource("5_portal")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Atlas_portal_5"]
+atlas = ExtResource("5_portal")
+region = Rect2(640, 0, 128, 128)
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("Atlas_success_0")}, {"duration": 1.0, "texture": SubResource("Atlas_success_1")}, {"duration": 1.0, "texture": SubResource("Atlas_success_2")}, {"duration": 1.0, "texture": SubResource("Atlas_success_3")}, {"duration": 1.0, "texture": SubResource("Atlas_success_4")}, {"duration": 1.0, "texture": SubResource("Atlas_success_5")}], "loop": false, "name": &"success", "speed": 14.0}, {"frames": [{"duration": 1.0, "texture": SubResource("Atlas_error_0")}, {"duration": 1.0, "texture": SubResource("Atlas_error_1")}, {"duration": 1.0, "texture": SubResource("Atlas_error_2")}, {"duration": 1.0, "texture": SubResource("Atlas_error_3")}, {"duration": 1.0, "texture": SubResource("Atlas_error_4")}, {"duration": 1.0, "texture": SubResource("Atlas_error_5")}], "loop": false, "name": &"error", "speed": 14.0}, {"frames": [{"duration": 1.0, "texture": SubResource("Atlas_crystal_0")}, {"duration": 1.0, "texture": SubResource("Atlas_crystal_1")}, {"duration": 1.0, "texture": SubResource("Atlas_crystal_2")}, {"duration": 1.0, "texture": SubResource("Atlas_crystal_3")}, {"duration": 1.0, "texture": SubResource("Atlas_crystal_4")}, {"duration": 1.0, "texture": SubResource("Atlas_crystal_5")}], "loop": false, "name": &"crystal", "speed": 14.0}, {"frames": [{"duration": 1.0, "texture": SubResource("Atlas_stars_0")}, {"duration": 1.0, "texture": SubResource("Atlas_stars_1")}, {"duration": 1.0, "texture": SubResource("Atlas_stars_2")}, {"duration": 1.0, "texture": SubResource("Atlas_stars_3")}, {"duration": 1.0, "texture": SubResource("Atlas_stars_4")}, {"duration": 1.0, "texture": SubResource("Atlas_stars_5")}], "loop": false, "name": &"stars", "speed": 14.0}, {"frames": [{"duration": 1.0, "texture": SubResource("Atlas_portal_0")}, {"duration": 1.0, "texture": SubResource("Atlas_portal_1")}, {"duration": 1.0, "texture": SubResource("Atlas_portal_2")}, {"duration": 1.0, "texture": SubResource("Atlas_portal_3")}, {"duration": 1.0, "texture": SubResource("Atlas_portal_4")}, {"duration": 1.0, "texture": SubResource("Atlas_portal_5")}], "loop": true, "name": &"portal", "speed": 14.0}]
