@@ -169,7 +169,7 @@ func _draw_game(size: Vector2) -> void:
 	var button_w := minf(130.0, (size.x - 420.0) / 4.0)
 	for i in range(choices.size()):
 		var bx := size.x - 4 * button_w - 4 * 12 + i * (button_w + 12)
-		_add_button(Rect2(bx, 522, button_w, 56), _format_number(float(choices[i])), "answer", BLUE)
+		_add_button(Rect2(bx, 522, button_w, 56), _format_number(float(choices[i])), "answer", BLUE, choices[i])
 	_draw_hud(size)
 
 func _draw_hud(size: Vector2) -> void:
