@@ -65,11 +65,11 @@ Each planet has five fixed tasks. Exact starting values and movement deltas are 
 ## 8. Interface and UX
 
 - Main menu: start game, level selection, settings, and instructions.
-- Level selection: ten cards show topic, lock state, and completion status.
+- Level selection: ten cards show topic, lock state, completion status, and the best score achieved on the planet.
 - Gameplay: planet story, objective, number line, current expression, four answer buttons, hearts, score, and task progress.
 - Completion screen: stars, level score, next planet, level selection, and main menu.
 - Settings: sound effects, reduced-motion preference, high-contrast text, and reset progress.
-- Input: mouse click and touchscreen tap.
+- Input: mouse click, touchscreen tap, and keyboard shortcuts (`1`–`4` answer, `Enter` start/next planet, `Esc` menu).
 
 ## 9. Visual direction
 

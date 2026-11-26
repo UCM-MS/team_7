@@ -31,6 +31,7 @@ Responsibilities:
 - maintain selected/current level, task index, score, lives, stars, and robot position;
 - render panels, buttons, robot, number line, HUD, and feedback;
 - register button rectangles and map mouse/touch coordinates to actions;
+- map keyboard shortcuts (`1`–`4`, `Enter`, `Esc`) to the same actions;
 - validate selected answers and apply rewards/penalties;
 - handle level completion and unlock progression;
 - generate short WAV tones at runtime;
@@ -94,16 +95,17 @@ File: `user://roboticka_misia_save.cfg`
 Format: Godot `ConfigFile` (INI-like sections).
 
 `[progress]`: `score`, `unlocked_level`, `completed_levels`, `best_scores`, `current_level`, `task_index`, `lives`, `robot_position`, `has_active_game`.  
-`[settings]`: `sound_enabled`, `reduced_motion`, `high_contrast`.
+`[settings]`: `sound_enabled`, `music_enabled`, `reduced_motion`, `high_contrast`.
 
 The file is stored in the user's Godot application data directory, not in the exported game folder. If no save file exists, default values are used.
 
 ## 6. Input design
 
 - Mouse: left click.
-- Touch: screen touch press.
+- Touch: screen touch press. Godot also emits an emulated mouse click for every touch (`emulate_mouse_from_touch` is enabled by default); `_input()` discards mouse events whose `device` is `InputEvent.DEVICE_ID_EMULATION`, otherwise one tap would run its action twice (e.g. a settings toggle would switch back, or an answer would also be submitted for the next task).
+- Keyboard: `_handle_key()` reads `physical_keycode`. `1`–`4` / numpad `1`–`4` choose the answer in that slot (the slot order comes from `_get_choices()`, the same function used for drawing), `Enter` starts/continues the game in the menu or opens the next planet on the completion screen, and `Esc` returns to the main menu.
 - Buttons are represented by `Rect2` hit areas registered during drawing.
-- Input is handled centrally by `_input()` and `_handle_click()`.
+- Input is handled centrally by `_input()`, `_handle_click()` and `_handle_key()`; all of them dispatch to `_handle_action()`.
 
 ## 7. Rendering design
 
@@ -125,4 +127,4 @@ For a larger production version, replace procedural drawing with reusable scenes
 
 ## Background audio subsystem (extension)
 
-`Game.gd` creates a dedicated `AudioStreamPlayer` for background music, separate from the existing short synthesized UI sound effects. `_load_background_music()` loads `res://audio/background_music.ogg` when present and enables looping for OGG Vorbis streams. `_begin_music_session()` starts playback on game start or direct planet selection. The player remains alive across screen and level changes, so the track continues without restarting. `music_enabled` is persisted in the settings section of the local save file.
+`Game.gd` creates a dedicated `AudioStreamPlayer` for background music, separate from the existing short synthesized UI sound effects. `_load_background_music()` loads `res://audio/background_music.ogg` when present and enables looping for OGG Vorbis streams. `_begin_music_session()` starts playback on game start or direct planet selection. The player remains alive across screen and level changes, so the track continues without restarting. `_update_music_state()` runs after every action and is the single place that decides the player state: stopped when music is disabled, paused (`stream_paused`) on the `menu` screen, and playing on every other screen once the session has started. Returning from the menu unpauses the stream, so playback continues from the same position. `music_enabled` is persisted in the settings section of the local save file.

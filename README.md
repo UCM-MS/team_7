@@ -24,7 +24,15 @@ The project uses only built-in Godot nodes and GDScript; no external asset packs
 
 ## Controls
 
-Mouse click or touchscreen tap. There is no keyboard-only gameplay requirement.
+Mouse click or touchscreen tap. Keyboard shortcuts are also available:
+
+| Key | Action |
+|---|---|
+| `1`–`4` (also numpad) | Choose the answer in the corresponding slot (left to right). Each answer button shows its number. |
+| `Enter` | Start / continue the game in the main menu; go to the next planet on the completion screen. |
+| `Esc` | Return to the main menu from any other screen. |
+
+Shortcuts use physical key positions, so they work on Slovak (QWERTZ) layouts without pressing Shift.
 
 ## Project structure
 
@@ -51,6 +59,8 @@ Roboticka_ciselna_misia/
 - The number-line range is −10 to +10. All integer-level results remain in this range. The decimal planet uses half-unit values while keeping the same visual scale.
 - Sound effects are short synthesized tones; no external audio files are needed.
 - The settings include sound effects, reduced-motion preference, high-contrast text, and a progress reset.
+- The level-selection cards show the best score achieved on each completed planet.
+- Touch input: Godot emulates a mouse click from every touch by default. `_input()` ignores these emulated clicks (`InputEvent.DEVICE_ID_EMULATION`) so one tap triggers exactly one action.
 
 ## Current scope
 
@@ -59,7 +69,7 @@ This is a complete playable coursework prototype with ten levels and a repeatabl
 
 ## Background music (new)
 
-Background music starts when the player clicks **ZAČAŤ HRU** (or selects a planet directly), then continues looping through gameplay and screen/level transitions. It has a separate on/off control in **Nastavenia → Hudba na pozadí**; the existing sound-effects setting remains independent.
+Background music starts when the player clicks **ZAČAŤ HRU** (or selects a planet directly), then continues looping through gameplay and screen/level transitions. In the main menu (including **PAUZA / MENU** during a mission) the music is paused and resumes from the same position when the player leaves the menu. It has a separate on/off control in **Nastavenia → Hudba na pozadí**; the existing sound-effects setting remains independent.
 
 The project does not include the copyrighted “Lambada – Original Version (1989)” recording. To use a recording you are licensed to use, place an OGG Vorbis file at `audio/background_music.ogg`. See `audio/README_MUSIC.txt`. If the file is absent, the game still runs normally without background music.
 

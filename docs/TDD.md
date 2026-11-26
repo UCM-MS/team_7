@@ -89,11 +89,15 @@ A short mono 16-bit PCM buffer is generated in GDScript at 22,050 Hz. The sample
 | T12 | Half-unit task | Play planet 7. | Decimal values are displayed and accepted. |
 | T13 | Absolute value | Play planet 4. | Expression uses absolute-value bars and target is non-negative. |
 | T14 | Boss level | Unlock and complete planet 10. | Boss scoring bonus and completion behavior work. |
+| T15 | Single action per tap | On a touch device, tap a settings toggle and a correct answer. | The toggle changes exactly once; only one task is answered and no life is lost. |
+| T16 | Keyboard answers | During a task press `1`–`4` (main row and numpad). | The answer in the matching slot is submitted, same as clicking it. |
+| T17 | Keyboard navigation | Press `Enter` in the menu, `Esc` in game, `Enter` on the completion screen. | Game starts/continues, returns to menu, next planet starts. |
+| T18 | Best score display | Complete a planet, open level selection. | The card shows "Najlepšie skóre" with the best run score; replaying with a lower score does not lower it. |
 
 ## 11. Known limitations and next technical steps
 
 - The UI is drawn in one script, so controls are not individually exposed to Godot's accessibility tree.
-- The current prototype does not include keyboard navigation or remappable controls.
+- Keyboard shortcuts cover answering and the main navigation (`1`–`4`, `Enter`, `Esc`), but there is no focus-based navigation of every button and controls are not remappable.
 - The reduced-motion option is a preference hook but there is little animation to reduce yet.
 - High contrast currently changes text color; a full high-contrast theme should also change panels and borders.
 - The pause/menu control returns to the main menu instead of opening a pause overlay.
@@ -106,7 +110,8 @@ A short mono 16-bit PCM buffer is generated in GDScript at 22,050 Hz. The sample
 - Asset path: `res://audio/background_music.ogg` (OGG Vorbis). The copyrighted Lambada recording is not bundled; the project owner must supply an appropriately licensed audio file.
 - Runtime node: a dedicated `AudioStreamPlayer` created by `Game.gd`; it does not replace the UI sound-effect player.
 - Looping: OGG stream looping is enabled when the resource is loaded.
-- Start condition: Start Game or direct level selection. Playback continues through menu/settings/level/complete screen transitions until disabled or the application exits.
+- Start condition: Start Game or direct level selection. Playback continues through settings/level/complete screen transitions until disabled or the application exits.
+- Main menu: music is paused while the `menu` screen is shown (also via PAUZA / MENU or `Esc`) and resumes from the same position after leaving it.
 - Persistence: `music_enabled` is saved and loaded separately from `sound_enabled`.
 
 ### Audio test cases
@@ -116,3 +121,5 @@ A short mono 16-bit PCM buffer is generated in GDScript at 22,050 Hz. The sample
 4. Toggle background music off; confirm only music stops and UI beeps remain controlled by the sound-effects setting.
 5. Toggle music on during an active session; confirm music resumes.
 6. Remove the OGG file; confirm the game still launches without an audio-loading error.
+7. During a mission press PAUZA / MENU (or `Esc`); confirm music pauses. Click ZAČAŤ HRU; confirm it resumes from the same position, not from the beginning.
+8. Disable music in Settings, return to the menu and start the game; confirm music stays off.

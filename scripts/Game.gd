@@ -126,6 +126,8 @@ func _draw_levels(size: Vector2) -> void:
 		draw_rect(rect, Color(CYAN, 0.65) if unlocked else Color("526477"), false, 2, true)
 		_draw_text("%02d  %s" % [i + 1, LEVELS[i].name], rect.position + Vector2(15, 27), 16, WHITE if unlocked else MUTED, true)
 		_draw_text(LEVELS[i].topic, rect.position + Vector2(15, 52), 12, MUTED)
+		if best_scores.has(str(i)):
+			_draw_text("Najlepšie skóre: %d" % int(best_scores[str(i)]), rect.position + Vector2(card_w - 160, 52), 11, YELLOW)
 		var status := "DOKONČENÉ ★" if completed_levels.has(i) else ("ODOMKNUTÉ" if unlocked else "ZAMKNUTÉ")
 		_draw_text(status, rect.position + Vector2(card_w - 128, 27), 11, GREEN if completed_levels.has(i) else (YELLOW if unlocked else MUTED))
 		if unlocked:
@@ -170,6 +172,8 @@ func _draw_game(size: Vector2) -> void:
 	for i in range(choices.size()):
 		var bx := size.x - 4 * button_w - 4 * 12 + i * (button_w + 12)
 		_add_button(Rect2(bx, 522, button_w, 56), _format_number(float(choices[i])), "answer", BLUE, choices[i])
+		_draw_text(str(i + 1), Vector2(bx + 7, 536), 10, MUTED)
+	_draw_text("Klávesy 1–4: výber odpovede   •   Esc: menu", Vector2(size.x - 4 * button_w - 4 * 12, 600), 11, MUTED)
 	_draw_hud(size)
 
 func _draw_hud(size: Vector2) -> void:
@@ -201,7 +205,8 @@ func _draw_help(size: Vector2) -> void:
 		"4. Nesprávna odpoveď aktivuje prekážku a odoberie jeden život. Môžeš skúšať ďalej.",
 		"5. Na dokončenie planéty vyrieš päť úloh. Po dokončení sa odomkne ďalšia planéta.",
 		"6. Postup, skóre a odomknuté úrovne sa ukladajú automaticky do lokálneho súboru.",
-		"Ovládanie: kliknutie myšou alebo dotyk na odpoveď či tlačidlo."
+		"Ovládanie: kliknutie myšou alebo dotyk na odpoveď či tlačidlo.",
+		"Klávesnica: 1–4 vyberie odpoveď, Enter spustí hru / ďalšiu planétu, Esc vráti do menu."
 	]
 	for i in range(lines.size()): _draw_text(lines[i], Vector2(75, 170 + i * 42), 15, WHITE)
 	_add_button(Rect2(30, size.y - 74, 170, 44), "SPÄŤ DO MENU", "menu", PANEL_2)
@@ -280,9 +285,47 @@ func _format_number(value: float) -> String:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		# Godot emulates a mouse click from every touch by default
+		# (input_devices/pointing/emulate_mouse_from_touch). The real touch is
+		# handled below, so skip the emulated copy to avoid a double action.
+		if event.device == InputEvent.DEVICE_ID_EMULATION:
+			return
 		_handle_click(event.position)
 	elif event is InputEventScreenTouch and event.pressed:
 		_handle_click(event.position)
+	elif event is InputEventKey and event.pressed and not event.echo:
+		_handle_key(event.physical_keycode)
+
+# Keyboard shortcuts: 1–4 choose an answer, Enter confirms the main action
+# of the screen, Esc returns to the main menu.
+func _handle_key(keycode: Key) -> void:
+	var answer_keys := [KEY_1, KEY_2, KEY_3, KEY_4]
+	var numpad_keys := [KEY_KP_1, KEY_KP_2, KEY_KP_3, KEY_KP_4]
+	var slot := answer_keys.find(keycode)
+	if slot == -1: slot = numpad_keys.find(keycode)
+	if slot != -1:
+		if screen != "game": return
+		var task: Dictionary = LevelData.get_task(current_level, task_index)
+		var choices := _get_choices(float(task.answer))
+		_play_beep(660.0)
+		_handle_action("answer", choices[slot])
+		get_viewport().set_input_as_handled()
+		return
+	match keycode:
+		KEY_ESCAPE:
+			if screen != "menu":
+				_play_beep(660.0)
+				_handle_action("menu")
+		KEY_ENTER, KEY_KP_ENTER:
+			if screen == "menu":
+				_play_beep(660.0)
+				_handle_action("start")
+			elif screen == "complete" and current_level < LEVELS.size() - 1:
+				_play_beep(660.0)
+				_handle_action("next_level")
+		_:
+			return
+	get_viewport().set_input_as_handled()
 
 func _handle_click(pos: Vector2) -> void:
 	for i in range(buttons.size() - 1, -1, -1):
@@ -308,6 +351,7 @@ func _handle_action(action: String, value: Variant = null) -> void:
 		"toggle_contrast": high_contrast = not high_contrast
 		"toggle_music": _toggle_music()
 		"reset_save": _reset_progress()
+	_update_music_state()
 	_save_progress()
 	queue_redraw()
 
@@ -455,21 +499,37 @@ func _load_background_music() -> void:
 
 func _on_music_finished() -> void:
 	# Fallback looping for formats that do not expose a native loop setting.
-	if music_enabled and music_started and music_player.stream != null and not music_player.playing:
+	if music_enabled and music_started and screen != "menu" and music_player.stream != null and not music_player.playing:
 		music_player.play()
 
 func _begin_music_session() -> void:
 	music_started = true
-	if music_enabled and music_player.stream != null and not music_player.playing:
+
+# Single place that decides what the music player does:
+# - music disabled → stopped,
+# - main menu → paused (resumes from the same spot when the player leaves the menu),
+# - any other screen after the session started → playing.
+func _update_music_state() -> void:
+	if music_player == null or music_player.stream == null:
+		return
+	if not music_enabled:
+		music_player.stream_paused = false
+		if music_player.playing:
+			music_player.stop()
+		return
+	if not music_started:
+		return
+	if screen == "menu":
+		if music_player.playing:
+			music_player.stream_paused = true
+	elif music_player.stream_paused:
+		music_player.stream_paused = false
+	elif not music_player.playing:
 		music_player.play()
 
 func _toggle_music() -> void:
 	music_enabled = not music_enabled
-	if not music_enabled:
-		if music_player.playing:
-			music_player.stop()
-	elif music_started and music_player.stream != null:
-		music_player.play()
+	_update_music_state()
 	_save_progress()
 
 func _play_beep(frequency: float) -> void:
